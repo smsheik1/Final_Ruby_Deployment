@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+</head>
+<body>
+	<div>
+		<h1>Welcome <%=@user.name%></h1>
+		<a href='/sessions/:id' data-method="delete">Log Out</a>
+	</div>
+	<div>
+		<form action="/posts" method="POST">
+			<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+			<textarea  name="post[content]" placeholder="post something witty here...">
+			</textarea>
+			<input type="submit" value="Idea!">
+		</form>
+		<div class="errors">
+		<% if flash[:post_errors]%>
+			<% flash[:post_errors].each do |error|%>
+				<p><%=error%></p>
+			<%end%>
+		<%end%>
+	</div>
+
+	<div>
+		<%@posts.each do |post|%>
+			<h5><%=post.user.name%> says:</h5>
+			<%if post.user.id == session[:user_id]%>
+			<p><%=post.content%><a href='/posts/<%=post.id%>' data-method="delete">delete </a></p>
+
+			<a href="/posts/<%=post.id%>" data-method="post">Like</a>
+			
+			<p><a href="/bright_ideas/<%=post.id%>"><%= post.LikedPost.count %> likes</a></p>
+		<%end%>
+ 		<% end %>
+ 	</div>
+</body>
+</html>
