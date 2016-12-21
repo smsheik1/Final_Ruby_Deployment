@@ -7,7 +7,5 @@ class CreatePosts < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    def down
-    	remove_column :like
   end
 end
