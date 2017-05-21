@@ -1,0 +1,20 @@
+I"d(function() {
+  Spree.disableSaveOnClick = function() {
+    return ($('form.edit_order')).submit(function() {
+      return ($(this)).find(':submit, :image').attr('disabled', true).removeClass('primary').addClass('disabled');
+    });
+  };
+
+  Spree.ready(function($) {
+    var termsCheckbox;
+    termsCheckbox = $('#accept_terms_and_conditions');
+    return termsCheckbox.change(function() {
+      var submitBtn;
+      submitBtn = $(this.closest('form')).find(':submit');
+      submitBtn.prop('disabled', !this.checked);
+      return submitBtn.toggleClass('disabled', !this.checked);
+    });
+  });
+
+}).call(this);
+:ET
